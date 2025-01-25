@@ -22,6 +22,7 @@ object findGCD {
             val R = A % B
             A = B
             B = R
+            // invariant is maintained here
         }
         A
 
@@ -46,11 +47,13 @@ object findGCD {
             val Remainder = A % B
             coefficients_n(0) = coefficients_n_minus_two(0) - Quotient * coefficients_n_minus_one(0)
             coefficients_n(1) = coefficients_n_minus_two(1) - Quotient * coefficients_n_minus_one(1)
+            // Invariant is maintained here
             A = B 
             B = Remainder
             firstIterationFlag = false
         }
         (A, coefficients_n_minus_one(0), coefficients_n_minus_one(1))
+        // invariant is maintained
 
     }
 
