@@ -22,5 +22,9 @@ Each problem file is named **`qu<i>`** followed by a number of asterisks (**`*`*
   - **`qu<i>**`** (2 asterisks):  
     - There is a lot I want to discuss.  
   - More asterisks (e.g., **`qu<i>***`**, **`qu<i>****`**):  
-    - Signify increased time spent on the problem and/or significant interest due to complexity or insights.  
+    - Signify increased time spent on the problem and/or significant interest due to complexity or insights.
+   
+### Commmit History
+
+This is currently a mess, but starting from pset2 I will try  to make my commit history reflect my thought process as I am going through the working sheet.
 
