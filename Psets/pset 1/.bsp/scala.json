@@ -11,12 +11,12 @@
     "--skip-cli-updates",
     "bsp",
     "--json-options",
-    "/Users/arjun/Documents/GitHub/Oxford courses/Imperative programming/Psets/pset 1/.scala-build/ide-options-v2.json",
+    "/Users/arjun/Documents/GitHub/Oxford courses/Imperative programming/Imperative-programming-Hillary-Term/Psets/pset 1/.scala-build/ide-options-v2.json",
     "--json-launcher-options",
-    "/Users/arjun/Documents/GitHub/Oxford courses/Imperative programming/Psets/pset 1/.scala-build/ide-launcher-options.json",
+    "/Users/arjun/Documents/GitHub/Oxford courses/Imperative programming/Imperative-programming-Hillary-Term/Psets/pset 1/.scala-build/ide-launcher-options.json",
     "--envs-file",
-    "/Users/arjun/Documents/GitHub/Oxford courses/Imperative programming/Psets/pset 1/.scala-build/ide-envs.json",
-    "/Users/arjun/Documents/GitHub/Oxford courses/Imperative programming/Psets/pset 1"
+    "/Users/arjun/Documents/GitHub/Oxford courses/Imperative programming/Imperative-programming-Hillary-Term/Psets/pset 1/.scala-build/ide-envs.json",
+    "/Users/arjun/Documents/GitHub/Oxford courses/Imperative programming/Imperative-programming-Hillary-Term/Psets/pset 1/qu8.scala"
   ],
   "version": "1.5.4",
   "bspVersion": "2.1.1",
