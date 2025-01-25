@@ -55,7 +55,7 @@ object findGCD {
     
     
     
-    d// Main function to allow user input (courtesy claude!)
+    // Main function to allow user input (courtesy claude!)
     def main(args: Array[String]): Unit = {
         println("Welcome to the Extended GCD Calculator!")
         println("Enter two positive integers separated by a space, or 'q' to quit.")
