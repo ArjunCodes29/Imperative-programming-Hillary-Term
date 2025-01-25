@@ -4,6 +4,7 @@ common divisor a.
 (b) Now adapt your program to also calculate integers x and y such that a = mx + ny.
 Give an invariant for each loop in the programs.
 */
+import scala.io.StdIn.readLine
 
 
 object findGCD {
@@ -54,11 +55,33 @@ object findGCD {
     
     
     
+    d// Main function to allow user input (courtesy claude!)
     def main(args: Array[String]): Unit = {
-        val (m,n) = (112, 34) 
-        val gcd = gcdSimple(m,n)
-        val gcdExtended = extendedGcd(m,n)
-        println("GCD is:" + gcd + "Gcd with x and y is: " + gcdExtended)
+        println("Welcome to the Extended GCD Calculator!")
+        println("Enter two positive integers separated by a space, or 'q' to quit.")
 
+        var continue = true
+        while (continue) {
+            val input = readLine("Input: ").trim
+
+            if (input.toLowerCase == "q") {
+                continue = false
+                println("Exiting the program. Goodbye!")
+            } else {
+                val parts = input.split("\\s+")
+                if (parts.length == 2 && parts.forall(_.forall(_.isDigit))) {
+                    val m = parts(0).toInt
+                    val n = parts(1).toInt
+
+                    val gcd = gcdSimple(m, n)
+                    val (gcdExtended, x, y) = extendedGcd(m, n)
+
+                    println(s"The GCD of $m and $n is: $gcd")
+                    println(s"The Extended GCD result is: gcd($m, $n) = $gcd = $m * ($x) + $n * ($y)")
+                } else {
+                    println("Invalid input. Please enter two positive integers or 'q' to quit.")
+                }
+            }
+        }
     }
 }
