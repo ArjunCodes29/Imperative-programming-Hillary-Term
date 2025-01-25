@@ -12,3 +12,32 @@ All we have to know is if a given element (i) is greater than the max of all the
 So we can iterate just once through the list, updating the max at each point
 
 */
+
+object hits {
+
+
+    def hits_On(array : Array[Int]) : Int = {
+        var max = - 1 // probably want negative infinity...  lets just say my code only works on positive integers for now
+        val n = array.size
+        var i = 0
+        var hits_count = 0
+        while (i < n) {
+
+            if (array(i) > max) {
+                hits_count += 1
+                max = array(i)
+            }
+            i += 1
+        }
+        hits_count
+
+        
+    }
+
+    def main(args: Array[String]): Unit = {
+        val array = Array(2, 3, 1, 5, 4, 6) // Example input array
+        val result = hits_On(array) // Call the function
+        println(s"Number of hits: $result") // Print the result
+    }
+
+}
