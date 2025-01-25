@@ -85,3 +85,17 @@ object findGCD {
         }
     }
 }
+
+// Example output
+/*
+Welcome to the Extended GCD Calculator!
+Enter two positive integers separated by a space, or 'q' to quit.
+Input: 112
+Invalid input. Please enter two positive integers or 'q' to quit.
+Input: 112 34
+The GCD of 112 and 34 is: 2
+The Extended GCD result is: gcd(112, 34) = 2 = 112 * (7) + 34 * (-23)
+Input: 765 450
+The GCD of 765 and 450 is: 45
+The Extended GCD result is: gcd(765, 450) = 45 = 765 * (3) + 450 * (-5)
+Input: */
