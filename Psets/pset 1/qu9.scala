@@ -29,7 +29,7 @@ object hits {
             }
             i += 1
         }
-        hits_count
+        hits_count - 1 // apparently the first elem doesnt count as a hit (but I think it should)
 
         
     }
