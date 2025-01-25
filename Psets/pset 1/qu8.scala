@@ -17,6 +17,7 @@ object findGCD {
         var A = a
         var B = b
 
+        //Invariant I : gcd(A,B) = gcd(B, A % B)
         while (B > 0) {
             val R = A % B
             A = B
@@ -34,6 +35,7 @@ object findGCD {
         var coefficients_n_minus_one = Array[Int](0,1)
         var coefficients_n = Array[Int](0,0)
         var firstIterationFlag = true
+        //Invariant I: coefficients_n = coefficients n-2 - quotient * coefficients n-1   && 0<n < iterations
         while(B>0){
             if (firstIterationFlag == false) {
                 coefficients_n_minus_two = coefficients_n_minus_one.clone()
