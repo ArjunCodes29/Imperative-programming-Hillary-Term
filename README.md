@@ -28,3 +28,5 @@ Each problem file is named **`qu<i>`** followed by a number of asterisks (**`*`*
 
 This is currently a mess, but starting from pset2 I will try  to make my commit history reflect my thought process as I am going through the working sheet.
 
+### coming soon
+make just one md file for each pset so its easier to mark
