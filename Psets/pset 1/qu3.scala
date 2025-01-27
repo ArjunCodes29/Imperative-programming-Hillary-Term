@@ -3,7 +3,8 @@
 
  def max(a : Array[Int]) : Int = {
     val n = a.size
-    var currentMax = -1 // Assuming Array will have positive integers (if not I could always make this minus infinity)
+    require (n>=1)
+    var currentMax = a(0)
     var i = 0
     // Invariant I: currentMax = max(a[0..i)) && 0<= i <=n
     // Variant currentMax
