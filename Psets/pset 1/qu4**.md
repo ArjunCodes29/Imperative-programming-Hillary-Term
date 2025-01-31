@@ -16,3 +16,8 @@
 
 ## in actuality the code is pretty nice
     I was nitpicking, I think the code is quite decently written. I wonder what mistakes you were looking for?
+
+# irwins points
+
+you can just sum it as you go instead of storing it in an array-  wasting space
+no prompt for the user on what to input and no explanation of waht the output is
