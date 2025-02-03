@@ -102,10 +102,296 @@ object Cipher{
   }
 
   /** The first optional statistical test, to guess the length of the key */
+<<<<<<< HEAD
   def crackKeyLen(ciphertext: Array[Char]) : Unit = ???
 
   /** The second optional statistical test, to guess characters of the key. */
   def crackKey(klen: Int, ciphertext: Array[Char]) : Unit = ???
+=======
+  
+  /** Joe's notes
+  "The first function, crackKeyLen, takes a cipher-text and counts the matching characters for various shifts. I made it try each shift amount from 1 to
+30, so as to cover small multiples of any modest key size. For each shift
+amount shift, the program counts the number of values of i for which
+ciphertext(i) = ciphertext(shift+i), and prints the results. For example:7"
+*/
+
+/** Arjun's thoughts
+This seems like a bunch of while loops should work (I could use for loops but I don't like them).
+I want the outermost while loop to loop from 1 to 30 (remember we are assuming that the length of ciphertext will be signficantly greater than 30)
+On the inner loop I would want to iterate through each index of ciphertext and add to a counter if ciphertext[inner_index] == ciphertext[ innder_index + outer_index]
+The tricky thing here is ensuring there are no index out of bounds error, we can do this by having the inner loops while condition to be inner_index < cipher_text.size - outer_index
+The final thing to consider is how to print out our data in a way that is like how Joe does it (so that we can use his command line tricks later on)
+*/
+  def crackKeyLen(ciphertext: Array[Char]) : Unit = {
+    var shift_size = 1 // this will be our outer_index
+    val lengthCipherText = ciphertext.size
+    while(shift_size<=30) {
+      var index = 0 // our inner_index
+      var count_matches = 0 
+      while (index < lengthCipherText - shift_size){
+        if(ciphertext(index) == ciphertext(index+ shift_size)) {
+          count_matches += 1
+          
+        }
+        index +=1
+      }
+      
+      println(s"$shift_size: $count_matches")
+      shift_size += 1
+      
+    }
+  }
+/** Output for the above function looks like this 
+
+ugsapc2[~/Documents/Imperative-programming-Hillary-Term/practical 1- ciphers]$ scala Cipher -crackKeyLen private1
+1: 17
+2: 9
+3: 24
+4: 9
+5: 22
+6: 16
+7: 11
+8: 9
+9: 40
+10: 19
+11: 10
+12: 11
+13: 12
+14: 14
+15: 22
+16: 11
+17: 10
+18: 46
+19: 13
+20: 15
+21: 16
+22: 15
+23: 16
+24: 17
+25: 15
+26: 10
+27: 23
+28: 16
+29: 11
+30: 28
+
+
+Hmmmmm, it seems that 9 looks like the keylength given 9,18 and 27 seem like  local maximas (also 18 is the global maxima)
+
+This is the output for private2
+
+ugsapc2[~/Documents/Imperative-programming-Hillary-Term/practical 1- ciphers]$ scala Cipher -crackKeyLen private2
+1: 17
+2: 12
+3: 14
+4: 4
+5: 12
+6: 8
+7: 5
+8: 27
+9: 8
+10: 6
+11: 6
+12: 17
+13: 9
+14: 6
+15: 11
+16: 21
+17: 17
+18: 14
+19: 7
+20: 12
+21: 4
+22: 9
+23: 11
+24: 17
+25: 9
+26: 3
+27: 3
+28: 6
+29: 2
+30: 5
+
+Here multiples of 8 are local maximas 
+*/
+
+
+
+/** Joe's notes
+
+The function crackKey tries shifting the ciphertext by multiples of klen.
+For each such shift amount s, the program again looks for indices i such
+that ciphertext(i) = ciphertext(s+i). Instead of counting them, however,
+the program works out what key character would explain the match if the
+corresponding plain-text character were a space. It also works out which of
+the klen characters of the key would be used in this position, and prints
+the index and the character. To reduce the amount of output, I suppressed
+characters that were not printable: that is, characters with codes that did
+not fall between 32 and 127.
+
+*/
+
+/** Arjun's (half-baked) thoughts
+An outer loop which iterates through multiples of klen (its not obvious what the stopping point for this is perhaps when m*klen > ciphertext.size
+An inner loop which for each multiple of klen, looks at all the shifts that match and when a shift matches assumes its because of the spacebar being in the orignal text
+Then an encryption on the ciphertext and spacebar to get a "vote" for what the key should be, and then we know which index of hte key this is because well we can either modulo
+which is the crude option but a more elegant option must have something to do with indexing (ill be using modulo thank you very much)
+
+nvm its easier to use the "elegant" option of indexing to get the key
+*/
+
+
+/** The second optional statistical test, to guess characters of the key. */
+def crackKey(klen: Int, ciphertext: Array[Char]): Unit = {
+  var shift_multiple = 1 // this will be our outer index
+  val lengthCipherText = ciphertext.size
+
+  while (klen * shift_multiple < lengthCipherText) {
+    var key_index = 0 // this will be our 2nd index
+    while (key_index < klen) {
+      // btw we need another while loop here, specifically we have to iterate floor lengthCiphertext/ klen*shift_multiple
+      var innerMostIndex = 0
+      val boundOfLoop = lengthCipherText / (klen * shift_multiple) - 1
+
+      while (innerMostIndex < boundOfLoop) {
+        
+        if (ciphertext(innerMostIndex * klen + key_index) == ciphertext(innerMostIndex * klen + key_index + klen * shift_multiple)) {
+          val key_guess = xor(' ', ciphertext(innerMostIndex * klen + key_index))
+          if (key_guess > 31 && key_guess < 128) {
+            println(s"$key_index $key_guess")
+          }
+        }  
+          
+       
+        innerMostIndex += 1
+      }
+
+      key_index += 1
+    }
+    shift_multiple += 1
+  }
+}
+
+    
+/**
+ugsapc2[~/Documents/Imperative-programming-Hillary-Term/practical 1- ciphers]$ scala Cipher -decrypt KEMBERLEY private1
+Ye not alzrmed, Maam, on r~ceiving ohis lett~r, by th~
+appreheusion of rts contarning any;repetititn of thohe
+sentim~nts, or ienewal o} those o}fers, whrch were wast nigho
+so disgnsting to;you.  I lrite witsout any rntention;of painiug
+you, oi humblin| myself,;by dwellrng on wihhes, whixh, for tse
+happin~ss of booh, cannoo be too hoon forgttten; an the efftrt
+which;the formztion and;the peruhal of thrs letter;must
+occzsion shonld have yeen spar~d, had ntt my chaiacter rejuired
+it;to be wrrtten and;read.  Ytu must, oherefore7 pardon ohe
+freedtm with wsich I devand your;attentiou; your f~elings, R
+know, wrll bestol it unwiwlingly, yut I demznd it of;your
+jusoice.
+ugsapc2[~/Documents/Imperative-programming-Hillary-Term/practical 1- ciphers]$ scala Cipher -decrypt PEMBERLEY private1
+Be not alarmed, Madam, on receiving this letter, by the
+apprehension of its containing any repetition of those
+sentiments, or renewal of those offers, which were last night
+so disgusting to you.  I write without any intention of paining
+you, or humbling myself, by dwelling on wishes, which, for the
+happiness of both, cannot be too soon forgotten; and the effort
+which the formation and the perusal of this letter must
+occasion should have been spared, had not my character required
+it to be written and read.  You must, therefore, pardon the
+freedom with which I demand your attention; your feelings, I
+know, will bestow it unwillingly, but I demand it of your
+
+woohooo!
+
+now lets crack 2
+justice*/
+
+/** this is 2
+ugsapc2[~/Documents/Imperative-programming-Hillary-Term/practical 1- ciphers]$ scala Cipher -crackKeyLen private2
+1: 17
+2: 12
+3: 14
+4: 4
+5: 12
+6: 8
+7: 5
+8: 27
+9: 8
+10: 6
+11: 6
+12: 17
+13: 9
+14: 6
+15: 11
+16: 21
+17: 17
+18: 14
+19: 7
+20: 12
+21: 4
+22: 9
+23: 11
+24: 17
+25: 9
+26: 3
+27: 3
+28: 6
+29: 2
+30: 5
+ugsapc2[~/Documents/Imperative-programming-Hillary-Term/practical 1- ciphers]$ scala Cipher -crackKey 8  private2 | sort -n | uniq -c
+      1 0 %
+      1 0 +
+      5 0 H
+      1 1  
+      4 1 O
+      1 3  
+      1 3 ?
+      2 3 W
+      1 4 k
+      4 6 T
+      4 7 S
+ugsapc2[~/Documents/Imperative-programming-Hillary-Term/practical 1- ciphers]$ scala Cipher -crackKey 16  private2 | sort -n | uniq -c
+      1 0 H
+      3 1 O
+      1 2 G
+      1 3  
+      1 3 >
+      2 3 W
+      1 4 k
+      2 6 T
+      1 7 ]
+      5 8 H
+      2 9 O
+      1 10 *
+      1 10 G
+      1 11 ?
+      2 13 R
+      2 15 S
+ugsapc2[~/Documents/Imperative-programming-Hillary-Term/practical 1- ciphers]$ scala Cipher -crackKey 8  private2 | sort -n | uniq -c
+      1 0 %
+      1 0 +
+      5 0 H
+      1 1  
+      4 1 O
+      1 3  
+      1 3 ?
+      2 3 W
+      1 4 k
+      4 6 T
+      4 7 S
+ugsapc2[~/Documents/Imperative-programming-Hillary-Term/practical 1- ciphers]$ scala Cipher -decrypt HOGWARTS private2
+HOGWARTS SCHOOL of WITCHCRAFT and WIZARDRY
+Headmaster: Albus Dumbledore (Order of Merlin, First Class, Grand
+Sorc., Chf. Warlock, Supreme Mugwump, International Confed. of
+Wizards)
+Dear Mr Potter,
+We are pleased to inform you that you have been accepted at Hogwarts
+School of Witchcraft and Wizardry. Please find enclosed a list of all
+necessary books and equipment. Term begins on 1 September. We await
+your owl by no later than 31 July.
+Yours sincerely, Minerva McGonagall. Deputy HeadmistressYugsapc2[~/Documents/Imperative-programming-Hillary-Term/practical 1- ciphers]$ 
+*/
+>>>>>>> 4f7462c (final commit, everything works,)
 
 /** The main method just selects which piece of functionality to run */
   def main(args: Array[String]) = {
