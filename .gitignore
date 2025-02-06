@@ -1,0 +1,32 @@
+# Ignore everything by default
+
+
+# Allow Psets directory and specific pset 1 content
+!Psets/
+!Psets/pset\ 1/
+!Psets/pset\ 1/**
+!Psets/pset\ 2/
+!Psets/pset\ 2/**
+
+
+# Ignore specific unwanted files and folders
+.metals/
+.scala-build/
+.vscode/
+.bsp/
+.gitattributes
+
+# Ignore other psets under Psets
+Psets/*
+!Psets/pset\ 1/
+*.log
+Psets/pset 1/.metals/metals.log
+Psets/pset 1/.metals/metals.log
+Psets/pset 1/.metals/metals.mv.db
+/Psets/.bsp
+/Psets/.scala-build
+/Psets/.scala-build
+*.class
+*.tasty
+*.json
+*.semanticdb
